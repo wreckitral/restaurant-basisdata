@@ -87,4 +87,21 @@ router.post(
   })
 );
 
+router.patch(
+  "/:idPesanan/set-pesanan-selesai",
+  asyncHandler(async (req, res) => {
+    const { idPesanan } = req.params;
+
+    const query = `
+        update pesanan
+        set status_pesanan = 'Selesai'
+        where id_pesanan = ?
+      `;
+
+    await db.query(query, [idPesanan]);
+    return res.status(201).json({ msg: "Pesanan telah diselesaikan" });
+  })
+);
+
+
 module.exports = router;

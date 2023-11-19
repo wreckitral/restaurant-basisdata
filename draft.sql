@@ -38,7 +38,7 @@ create table pesanan (
 
 insert into pelanggan values (1, 'Dian Prasetyo', 'Jl. Mawar Indah', '81234567890', 'dian.prasetyo@email.com');
 insert into karyawan values ('RP01', 'Rina Pratama', 'Manager', 10000000, 'Jl. Melati 5', '81234567890');
-insert into pesanan values ('L1TB1', 1, 'RP01', '2023-11-14', 'Selesai', 50000);
+insert into pesanan values ('L1TB1', 1, 'RP01', '2023-11-14', 'DImasak', 50000);
 insert into menu values ('FNG01', 'Nasi Goreng', 'Makanan', 250000);
 
 
