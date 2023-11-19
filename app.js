@@ -4,6 +4,7 @@ const cors = require("cors");
 
 const menuRoutes = require("./routes/menu-routes");
 const pesananRoutes = require("./routes/pesanan-routes");
+const adminRoutes = require("./routes/admin-routes");
 
 const errorHandlerMiddleware = require("./middlewares/errorHandling");
 
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/menu", menuRoutes);
 app.use("/pesanan", pesananRoutes);
+app.use("/admin", adminRoutes);
 
 app.use(errorHandlerMiddleware);
 

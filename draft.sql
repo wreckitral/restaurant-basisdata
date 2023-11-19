@@ -61,3 +61,18 @@ where id_pesanan = 'L1TB1';
 
 select * from menu;
 
+create table berisi (
+    id_berisi int PRIMARY KEY AUTO_INCREMENT,
+    id_pesanan varchar(10) NOT NULL,
+    id_menu varchar(10) NOT NULL,
+    foreign key (id_pesanan) references pesanan(id_pesanan),
+    foreign key (id_menu) references menu(id_menu)
+);
+
+update menu
+set nama_menu = 'nasgor',
+    kategori = 'minuman,
+    harga = 48888,
+    linkFoto = 'fjjaiej',
+    deskripsi = 'slajfeaknfekl',
+WHERE id_menu = 'MBTB2';
