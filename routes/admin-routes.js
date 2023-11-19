@@ -1,107 +1,37 @@
 const express = require("express");
-const asyncHandler = require("express-async-handler");
 const router = express.Router();
-const db = require("../data/database");
+const asyncHandler = require("express-async-handler");
+const {
+  inputMenu,
+  getAllMenu,
+  getMenu,
+  editMenu,
+  deleteMenu,
+  setPesananSelesai,
+  inputMeja,
+  getAllMeja,
+  editMeja,
+  deleteMeja,
+} = require("../controllers/admin-controller");
 
-router.post(
-  "/input-menu",
-  asyncHandler(async (req, res) => {
-    const { idMenu, namaMenu, kategori, harga, linkFoto, deskripsi } = req.body;
+router.post("/input-menu", inputMenu);
 
-    const query = `
-        insert into menu values (?, ?, ?, ?, ?, ?);
-    `;
+router.get("/all-menu", getAllMenu);
 
-    await db.query(query, [
-      idMenu,
-      namaMenu,
-      kategori,
-      harga,
-      linkFoto,
-      deskripsi,
-    ]);
+router.get("/:idMenu/menu", getMenu);
 
-    return res.status(201).json({ msg: "Successfully created a menu" });
-  })
-);
+router.patch("/:idMenu/edit-menu", editMenu);
 
-router.get(
-  "/all-menu",
-  asyncHandler(async (req, res) => {
-    const query = `
-        select * from menu;
-    `;
-    const menus = await db.query(query);
+router.post("/:idMenu/delete-menu", deleteMenu);
 
-    return res.status(200).json(menus[0]);
-  })
-);
+router.patch("/:idPesanan/set-pesanan-selesai", setPesananSelesai);
 
-router.patch(
-  "/:idMenu/edit",
-  asyncHandler(async (req, res) => {
-    const { idMenu } = req.params;
-    const { namaMenu, kategori, harga, linkFoto, deskripsi } = req.body;
+router.post("/input-meja", inputMeja);
 
-    const query = `
-        update menu
-        set nama_menu = ?,
-        kategori = ?,
-        harga = ?,
-        linkFoto = ?,
-        deskripsi = ?
-        WHERE id_menu = ?;
-    `;
+router.get("/all-meja", getAllMeja);
 
-    await db.query(query, [
-      namaMenu,
-      kategori,
-      harga,
-      linkFoto,
-      deskripsi,
-      idMenu,
-    ]);
+router.patch("/:idMeja/edit-meja", editMeja);
 
-    const updatedMenu = await db.query(`select * from menu where id_menu = ?`, [
-      idMenu,
-    ]);
-
-    return res
-      .status(201)
-      .json({ msg: "Menu was updated successfully", ...updatedMenu[0] });
-  })
-);
-
-router.post(
-  "/:idMenu/delete",
-  asyncHandler(async (req, res) => {
-    const { idMenu } = req.params;
-
-    const query = `
-        delete from menu
-        where id_menu = ?
-    `;
-
-    db.query(query, [idMenu]);
-    return res.status(201).json({ msg: "Menu was deleted succeccfully" });
-  })
-);
-
-router.patch(
-  "/:idPesanan/set-pesanan-selesai",
-  asyncHandler(async (req, res) => {
-    const { idPesanan } = req.params;
-
-    const query = `
-        update pesanan
-        set status_pesanan = 'Selesai'
-        where id_pesanan = ?
-      `;
-
-    await db.query(query, [idPesanan]);
-    return res.status(201).json({ msg: "Pesanan telah diselesaikan" });
-  })
-);
-
+router.post("/:idMeja/delete-meja", deleteMeja);
 
 module.exports = router;

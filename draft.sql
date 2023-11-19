@@ -69,6 +69,12 @@ create table berisi (
     foreign key (id_menu) references menu(id_menu)
 );
 
+create table meja (
+    id_meja varchar(10) PRIMARY KEY,
+    nomor_meja int NOT NULL,
+    kapasitas_meja int NOT NULL
+);
+
 update menu
 set nama_menu = 'nasgor',
     kategori = 'minuman,
